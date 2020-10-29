@@ -3,7 +3,7 @@ from imghst.app.configuration.unique_generators.uuid_based import generate_uniqu
 from pathlib import Path
 
 class Configuration:
-    """ Do Not Touch Anything Here. Configure with arugments. """
+    """ Do Not Touch Anything Here. Configure with arguments. """
     
     api_request_key = "DEFAULTCONFIGURATION"
     image_unique_file_name = generate_unique_id

@@ -1,15 +1,14 @@
 
 
 from setuptools import find_packages, setup
-
-
+from imghst.__version__ import Version
 
 
 setup(
     name="imghst",
-    version="0.0.1",
+    version=str(Version()),
     author="Mustafa Mohamed",
-    author_email="ms7mohamed@gmail.com",
+    author_email="git@ms7m.me",
     description="A simple and fast image hoster for applications like ShareX.",
     long_description="A simple and fast image hoster for applications like ShareX.",
     long_description_content_type="text/markdown",
