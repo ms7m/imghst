@@ -1,11 +1,11 @@
 
 
 from fastapi import FastAPI, HTTPException, UploadFile, File
-from .configuration.configuration import Configuration
+from imghst.app.configuration.configuration import Configuration
 from loguru import logger
 import aiofiles
 from datetime import datetime
-
+import typer
 import filetype
 
 from .request_models import (
@@ -14,6 +14,7 @@ from .request_models import (
 )
 
 app = FastAPI()
+app.configuration_object = Configuration()
 
 
 @app.get("/health", response_model=HealthCheckRequest)
@@ -26,10 +27,10 @@ async def health_check() -> HealthCheckRequest:
 @app.post("/uploadImage/{apiKey}", response_model=NewImageRequestResponse)
 async def upload_image_to_file_path(apiKey, image_upload: UploadFile = File(...)) -> NewImageRequestResponse:
     
-    if apiKey != Configuration.api_request_key:
+    if apiKey != app.configuration_object.api_request_key:
         raise HTTPException(status_code=400, detail="Invalid API Key.")
 
-    current_configuration_image_path = Configuration.image_hosting_folder
+    current_configuration_image_path = app.configuration_object.image_hosting_folder
     
     if not current_configuration_image_path.exists():
         raise HTTPException(status_code=500, detail="Improper configuration was set. The current configuration image hosting folder does not exist.")
@@ -67,7 +68,7 @@ async def upload_image_to_file_path(apiKey, image_upload: UploadFile = File(...)
         logger.exception("Unknown error occurred for detecting file type.")
         raise HTTPException(status_code=500, detail="System error on detecting file type.")
 
-    generate_a_unique_id = Configuration.image_unique_file_name()
+    generate_a_unique_id = app.configuration_object.image_unique_file_name()
     
     async with aiofiles.open(str(current_configuration_image_path / f"{generate_a_unique_id}.{detect_file_type.extension}"), "wb") as opened_file:
         await image_upload.seek(0)

@@ -25,21 +25,8 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "imghst = imghst.app.entry:entry"
+            "imghst = imghst.entry:cli_app"
         ]
     },
     include_package_data=True,
-    install_requires=[
-        "aiofiles==0.6.0",
-        "click==7.1.2",
-        "fastapi==0.61.1",
-        "filetype==1.0.7",
-        "h11==0.11.0",
-        "loguru==0.5.3",
-        "pydantic==1.7.1",
-        "python-multipart==0.0.5",
-        "six==1.15.0",
-        "starlette==0.13.6",
-        "typing-extensions==3.7.4.3",
-        "uvicorn==0.12.2",  
-    ])
+    install_requires=open("./requirements.txt", 'r').readlines())

@@ -11,4 +11,11 @@ Literally just upload files. That's it.
 
 ### How to configure?
 ***
-Should be as simple as reading ``app/configuration/configuration.py``. You should be able to figure it out.
+``imghst -h``
+
+
+## How to Install?
+
+```
+pip install imghst
+```
