@@ -28,7 +28,7 @@ def run(port: int = Configuration.port_number_to_run_on, directory_path: str = C
     print("\n")
     current_configuration_object = Configuration()
     current_configuration_object.api_request_key = api_key
-    current_configuration_object.port_number_to_run_on = portNumber
+    current_configuration_object.port_number_to_run_on = port
     current_configuration_object.image_hosting_folder = Path(directory_path)
     
 

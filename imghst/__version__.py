@@ -1,7 +1,7 @@
 
 class Version:
     major = 0
-    minor = 2
+    minor = 3
     patch = 0
     
     alpha_build = False
