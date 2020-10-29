@@ -12,6 +12,16 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Build Python Package",
+            "type": "shell",
+            "command": "cd ${workspaceFolder}; rm -rf build; venv/bin/python3 setup.py sdist bdist_wheel",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
