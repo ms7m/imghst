@@ -4,12 +4,12 @@ class Version:
     minor = 2
     patch = 0
     
-    alpha_build = True
+    alpha_build = False
     beta_build = False
     developer_build = False
 
     def __str__(self):
-        _human_readable_version = f"{self.major}-{self.minor}-{self.patch}"
+        _human_readable_version = f"{self.major}.{self.minor}.{self.patch}"
         if self.alpha_build:
             _human_readable_version += ".alpha"
 
