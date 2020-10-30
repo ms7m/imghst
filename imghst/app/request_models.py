@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from typing import Any
 
@@ -14,10 +13,10 @@ class NewImageRequestResponse(BaseModel):
     api_status: bool
     date_processed: datetime
     file_direct_path_name: str
+    shareable_link: str
 
-    
+
 class HealthCheckRequest(BaseModel):
     """ Request model for health check endpoint """
-    
-    systemStatus: bool
 
+    systemStatus: bool
