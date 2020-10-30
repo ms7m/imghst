@@ -1,9 +1,12 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi.responses import PlainTextResponse
+
 from imghst.app.configuration.configuration import Configuration
 from loguru import logger
 import aiofiles
 from datetime import datetime
 import filetype
+import typing
 
 from .request_models import HealthCheckRequest, NewImageRequestResponse
 
@@ -16,10 +19,10 @@ async def health_check() -> HealthCheckRequest:
     return HealthCheckRequest(systemStatus=True)
 
 
-@app.post("/uploadImage/{apiKey}", response_model=NewImageRequestResponse)
+@app.post("/uploadImage/{apiKey}")
 async def upload_image_to_file_path(
-    apiKey, image_upload: UploadFile = File(...)
-) -> NewImageRequestResponse:
+    apiKey, returnTextOnly: str = "no", image_upload: UploadFile = File(...)
+):
 
     if apiKey != app.configuration_object.api_request_key:
         raise HTTPException(status_code=400, detail="Invalid API Key.")
@@ -87,6 +90,10 @@ async def upload_image_to_file_path(
         str(app.configuration_object.current_domain_url)
         + f"{generate_a_unique_id}.{detect_file_type.extension}"
     )
+
+    if returnTextOnly == "yes":
+        return PlainTextResponse(generate_a_sharable_link)
+
     return NewImageRequestResponse(
         api_status=True,
         date_processed=datetime.now().isoformat(),
