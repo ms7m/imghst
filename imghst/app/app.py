@@ -21,7 +21,7 @@ async def health_check() -> HealthCheckRequest:
 
 @app.post("/uploadImage/{apiKey}")
 async def upload_image_to_file_path(
-    apiKey, returnTextOnly: str = "no", image_upload: UploadFile = File(...)
+    apiKey, returnRelativeOnly: str = "no", returnTextOnly: str = "no", image_upload: UploadFile = File(...)
 ):
 
     if apiKey != app.configuration_object.api_request_key:
@@ -91,6 +91,9 @@ async def upload_image_to_file_path(
         + f"{generate_a_unique_id}.{detect_file_type.extension}"
     )
 
+    if returnRelativeOnly == "yes":
+        return PlainTextResponse(f"/{generate_a_unique_id}.{detect_file_type.extension}")
+        
     if returnTextOnly == "yes":
         return PlainTextResponse(generate_a_sharable_link)
 
